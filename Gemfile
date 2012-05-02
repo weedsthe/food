@@ -13,11 +13,31 @@ gem 'sqlite3'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
+  gem 'haml'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platform => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+end
+
+group :development do
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  # gem 'thin'
+end
+
+group :test, :development do
+  gem "rspec-rails", "~> 2.6"
+  gem 'spork'
+  gem 'libnotify'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'mongoid-rspec'
+  gem 'database_cleaner'
+  gem "json_spec"
+  gem 'factory_girl_rails'
 end
 
 gem 'jquery-rails'
