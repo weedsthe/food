@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :dish do
-    title "MyString"
+    title "Pizza"
+    ingredients { [FactoryGirl.build(:cheese)] }
   end
 end

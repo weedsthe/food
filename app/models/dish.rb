@@ -31,7 +31,7 @@ class Dish
     end
 
     def remove_by_title(title)
-      ing = ingredients.where(title: title)  .first      
+      ing = ingredients.where(title: title).first      
       destroy_ingredient(ing)
     end
 
