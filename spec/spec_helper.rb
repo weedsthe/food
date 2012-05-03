@@ -13,8 +13,12 @@ Spork.prefork do
   # https://github.com/sporkrb/spork/wiki/Spork.trap_method-Jujutsu
   require "rails/mongoid"
   Spork.trap_class_method(Rails::Mongoid, :load_models)
-  Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
 
+
+  require "rails/application"
+  Spork.trap_method(Rails::Application, :eager_load!)
+  Spork.trap_method(Rails::Application, :reload_routes!)
+  
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'

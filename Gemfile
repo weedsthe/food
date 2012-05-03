@@ -30,6 +30,7 @@ group :test, :development do
   gem "rspec-rails", "~> 2.6"
   gem 'spork'
   gem 'libnotify'
+  gem 'pry-rails'
 end
 
 group :test do
