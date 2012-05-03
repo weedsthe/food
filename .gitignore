@@ -34,3 +34,4 @@ test/version_tmp
 .yardoc
 _yardoc
 doc/
+.rvmrc
