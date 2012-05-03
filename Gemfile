@@ -29,7 +29,8 @@ end
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
   gem 'spork'
-  gem 'libnotify'
+  gem 'libnotify' if /linux/ =~ RUBY_PLATFORM
+  gem 'growl' if /darwin/ =~ RUBY_PLATFORM
   gem 'pry-rails'
 end
 
