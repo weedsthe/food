@@ -1,4 +1,6 @@
 class Dish
+  class IngredientNotExist < StandardError; end
+
   include Mongoid::Document
 
   field :title, :type => String
@@ -42,7 +44,7 @@ class Dish
 
     def destroy_ingredient(ingredient)
       unless ingredient && ingredient.destroy
-        raise Exceptions::IngredientNotExist.new('nananana')
+        raise IngredientNotExist.new
       end
     end
 
