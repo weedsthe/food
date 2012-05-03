@@ -45,7 +45,7 @@ describe Dish do
   it "can't delete ingredient by wrong title" do
     dish = Dish.new(title: 'pizza')
     
-    dish.remove_ingredient('abc').should raise_error(Exceptions::IngredientNotExist)
+    lambda {dish.remove_ingredient('abc')}.should raise_error(Dish::IngredientNotExist)
   end
 
 end
