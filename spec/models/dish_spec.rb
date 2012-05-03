@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Dish do
 
-  before :all do
+  before :each do
     @dish = FactoryGirl.create(:dish)
   end
 
@@ -30,10 +30,7 @@ describe Dish do
   end
 
   it 'can delete ingredient by title' do
-    @dish.ingredients = []
-    @dish.ingredients = [FactoryGirl.build(:cheese)]
     ing = @dish.ingredients.first
-
 
     @dish.remove_ingredient(ing.title)
     @dish.ingredients.should be_empty
@@ -47,6 +44,10 @@ describe Dish do
     @dish.remove_ingredient(ing2)
     @dish.ingredients.should eq([ing1])
   end
+
+  # it "can't delete ingredient by wrong argument" do
+  #   @dish.ingredients.destroy_all
+  # end
 
   it "can't delete ingredient by wrong title" do
     @dish = Dish.new(title: 'pizza')    

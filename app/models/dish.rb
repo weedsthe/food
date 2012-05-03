@@ -10,7 +10,6 @@ class Dish
   
 
   validates :title, presence: true
-
   validate :min_number_of_ingredients
 
   def add_ingredient(attributes)
