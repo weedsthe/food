@@ -5,9 +5,10 @@ class Dish
 
   field :title, :type => String
 
+  belongs_to :category
+
   embeds_many :ingredients
 
-  
 
   validates :title, presence: true
 
