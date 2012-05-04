@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Dish do
 
   before :each do
-    @dish = FactoryGirl.create(:dish)
+    @dish = FactoryGirl.build(:dish)
   end
 
   it 'should always have title' do
@@ -29,29 +29,15 @@ describe Dish do
     @dish.ingredients.should eq([ing0,ing1,ing2])
   end
 
-  it 'can delete ingredient by title' do
+  it 'can delete ingredient by id' do
     ing = @dish.ingredients.first
 
-    @dish.remove_ingredient(ing.title)
+    @dish.remove_ingredient(ing.id)
     @dish.ingredients.should be_empty
   end
 
-  it 'can delete ingredient by record' do
-    @dish.ingredients = []
-    ing1 = @dish.add_ingredient(title: 'cheese')
-    ing2 = @dish.add_ingredient(title: 'beacon')
-
-    @dish.remove_ingredient(ing2)
-    @dish.ingredients.should eq([ing1])
-  end
-
-  # it "can't delete ingredient by wrong argument" do
-  #   @dish.ingredients.destroy_all
-  # end
-
-  it "can't delete ingredient by wrong title" do
-    @dish = Dish.new(title: 'pizza')    
-    lambda {@dish.remove_ingredient('abc')}.should raise_error(Dish::IngredientNotExist)
+  it "can't delete ingredient by wrong argument" do 
+    lambda {@dish.remove_ingredient("very wrong argument 123")}.should raise_error(Dish::IngredientNotExist)
   end
 
 end

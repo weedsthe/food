@@ -72,7 +72,7 @@ Spork.each_run do
   $rspec_start_time = Time.now
   
   # This code will be run each time you run your specs.
-  FactoryGirl.reload
+  # FactoryGirl.reload
 
   RSpec.configure do |config| 
     #database cleaner

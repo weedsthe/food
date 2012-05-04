@@ -3,7 +3,7 @@ class Dish
 
   include Mongoid::Document
 
-  field :title, :type => String
+  field :title
 
   belongs_to :category
 
@@ -17,12 +17,10 @@ class Dish
     ingredients.build(attributes)
   end
 
-  def remove_ingredient(parametrs)
-    case parametrs
-    when String then remove_by_title(parametrs)
-    when Ingredient then remove_by_record(parametrs)
-    else
-      raise "wrong parametrs class"
+  def remove_ingredient(id)
+    ing = ingredients.where(_id: id).first
+    unless ing && ing.destroy
+      raise IngredientNotExist.new
     end
   end
 
@@ -30,22 +28,6 @@ class Dish
 
     def min_number_of_ingredients
       errors[:base] << ("dish should have at least one ingredient") if ingredients.size < 1
-    end
-
-    def remove_by_title(title)
-      ing = ingredients.where(title: title).first      
-      destroy_ingredient(ing)
-    end
-
-    def remove_by_record(record)
-      ing = ingredients.where(_id: record.id).first
-      destroy_ingredient(ing)
-    end
-
-    def destroy_ingredient(ingredient)
-      unless ingredient && ingredient.destroy
-        raise IngredientNotExist.new
-      end
     end
 
 end

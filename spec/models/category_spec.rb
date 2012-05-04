@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Category do
 
   before :each do 
-    @category = FactoryGirl.create(:category)
-    @dish = FactoryGirl.create(:dish2)
+    @category = FactoryGirl.build(:category)
+    @dish = FactoryGirl.build(:dish2)
   end
 
   it "should always have a title" do
