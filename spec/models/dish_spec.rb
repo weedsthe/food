@@ -40,4 +40,32 @@ describe Dish do
     lambda {@dish.remove_ingredient("very wrong argument 123")}.should raise_error(BSON::InvalidObjectId)
   end
 
+  it 'should be valid with many prices' do
+    @dish.prices = []
+    price1 = Fabricate.attributes_for(:price, title: 'medium')
+    price2 = Fabricate.attributes_for(:price, title: 'large')
+    @dish.add_price(price1)
+    @dish.add_price(price2)
+
+    @dish.valid?.should be_true
+    @dish.prices.size.should == 2
+  end
+
+  it "shouldn't be valid without price" do
+    @dish.prices =  []
+
+    @dish.valid?.should be_false
+    @dish.errors.messages.should == {:prices=>["dish should have at least one prices"]}
+  end
+
+  it 'can delete price by id' do
+    price = @dish.prices.first
+    price2 = Fabricate.attributes_for(:price)
+    @dish.add_price(price2)
+
+    @dish.remove_price(price.id)
+    @dish.prices.size.should == 1
+  end
+
+  pending "can't have same prices"
 end
