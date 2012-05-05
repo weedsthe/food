@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :category do
     title "Pasta"
-    dishes { [FactoryGirl.build(:dish)] }
+    #dishes { [FactoryGirl.build(:dish)] }
   end
 end

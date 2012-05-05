@@ -11,4 +11,9 @@ FactoryGirl.define do
     ingredients { [FactoryGirl.build(:cheese)] }
   end
 
+  factory :pizza, class: Dish do
+    title "Pizza"
+    ingredients { [FactoryGirl.build(:cheese)] }
+  end
+
 end
