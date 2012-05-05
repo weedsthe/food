@@ -3,8 +3,7 @@ require 'spec_helper'
 describe Category do
 
   before :each do 
-    @category = FactoryGirl.build(:category)
-    #@dish = FactoryGirl.build(:dish2)
+    @category = Fabricate.build(:category)
   end
 
   it "should always have a title" do
@@ -16,36 +15,24 @@ describe Category do
   end
 
   it "can add dishesh through a hash" do
-    dish = FactoryGirl.build(:pizza)
-
+    dish = Fabricate.build(:dish)
+    
     @category.add_dish(dish.as_json)
-    @category.dishes.size.should == 1
-
+    @category.dishes.size.should == 2
   end
 
-  # it "can add dishesh through an object" do
-  #   dish = FactoryGirl.build(:pizza)
-  #   @category.add_dish(dish)
+  # it "can't have same dishes" do
+  #   dish = Fabricate.build(:dish) 
+  #   2.times{ @category.add_dish(dish.as_json) }
 
-  #   @category.dishes.size.should == 1 
+  #   @category.valid?.should be_false
   # end
 
-  it "can't have same dishes" do
-    dish = FactoryGirl.build(:pizza)
-    2.times{ @category.add_dish(dish.as_json) }
+  it "can delete delete dish through a dish id" do
+    dish = @category.dishes.first
+    dish.save
 
-    @category.valid?.should be_true
+    @category.remove_dish!(dish.id)
+    @category.dishes.size.should == 0
   end
-
-  # it "can delete delete dish through a dish id" do
-  #   dish = @category.dishes.first
-  #   @category.remove_dish(dish.id)
-  #   @category.dishesh.should be_empty
-  # end
-
-  # it "can delete delete dish through a dish title" do
-  #   dish = @category.dishes.first
-  #   @category.remove_dish(dish.title)
-  #   @category.dishesh.should be_empty
-  # end
 end

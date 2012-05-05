@@ -68,7 +68,7 @@ module Food
       g.orm             :mongoid
       g.test_framework  :rspec
       g.template_engine :haml
-      g.fixture_replacement "factory_girl", :dir => "spec/factories"
+      g.fixture_replacement "fabrication", :dir => "spec/fabricators"
     end
   end
 end

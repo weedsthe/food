@@ -18,10 +18,8 @@ class Dish
   end
 
   def remove_ingredient(id)
-    ing = ingredients.where(_id: id).first
-    unless ing && ing.destroy
-      raise IngredientNotExist.new
-    end
+    ing = ingredients.find(id)
+    ing.destroy
   end
 
   private

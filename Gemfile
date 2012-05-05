@@ -28,6 +28,7 @@ group :development do
 end
 
 group :test, :development do
+  gem 'fabrication'
   gem "rspec-rails", "~> 2.6"
   gem 'spork'
   gem 'libnotify' if /linux/ =~ RUBY_PLATFORM
@@ -40,7 +41,7 @@ group :test do
   gem 'mongoid-rspec'
   gem 'database_cleaner'
   gem "json_spec"
-  gem 'factory_girl_rails'
+  # gem 'factory_girl_rails'
 end
 
 gem 'jquery-rails'

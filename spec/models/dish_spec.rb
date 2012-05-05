@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Dish do
 
   before :each do
-    @dish = FactoryGirl.build(:dish)
+    @dish = Fabricate.build(:dish)
   end
 
   it 'should always have title' do
@@ -31,13 +31,13 @@ describe Dish do
 
   it 'can delete ingredient by id' do
     ing = @dish.ingredients.first
-
     @dish.remove_ingredient(ing.id)
-    @dish.ingredients.should be_empty
+    
+    @dish.ingredients.size.should == 0
   end
 
   it "can't delete ingredient by wrong argument" do 
-    lambda {@dish.remove_ingredient("very wrong argument 123")}.should raise_error(Dish::IngredientNotExist)
+    lambda {@dish.remove_ingredient("very wrong argument 123")}.should raise_error(BSON::InvalidObjectId)
   end
 
 end
