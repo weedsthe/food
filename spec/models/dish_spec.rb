@@ -31,8 +31,13 @@ describe Dish do
 
   it 'can delete ingredient by id' do
     ing = @dish.ingredients.first
-    @dish.remove_ingredient(ing.id)
+    @dish.save
+    ing.save
     
+
+    @dish.remove_ingredient(ing.id)
+    @dish.reload
+
     @dish.ingredients.size.should == 0
   end
 

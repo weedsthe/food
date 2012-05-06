@@ -7,7 +7,7 @@ class Dish
 
   belongs_to :category
 
-  embeds_many :ingredients
+  has_many :ingredients
   embeds_many :prices
 
   validates :title, presence: true
