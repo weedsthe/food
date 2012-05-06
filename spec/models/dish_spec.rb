@@ -2,11 +2,10 @@ require 'spec_helper'
 
 describe Dish do
 
-  before :each do
-    @dish = Fabricate.build(:dish)
-  end
 
   it 'should always have title' do
+    @dish = Fabricate.build(:dish)
+
     @dish.title = ''
     @dish.valid?.should be_false
     @dish.title = 'cheese'
@@ -14,7 +13,8 @@ describe Dish do
   end
 
   it 'always should have at least one ingredient' do
-    @dish.ingredients = []
+    @dish = Fabricate.build(:dish, ingredients: [])
+
     @dish.valid?.should be_false
 
     @dish.add_ingredient(title: 'ser')
@@ -22,6 +22,8 @@ describe Dish do
   end
 
   it 'can add ingredients' do
+    @dish = Fabricate.build(:dish)
+
     ing0 = @dish.ingredients.first
     ing1 = @dish.add_ingredient(title: 'cheese')
     ing2 = @dish.add_ingredient(title: 'beacon')
@@ -30,10 +32,8 @@ describe Dish do
   end
 
   it 'can delete ingredient by id' do
+    @dish = Fabricate(:dish)
     ing = @dish.ingredients.first
-    @dish.save
-    ing.save
-    
 
     @dish.remove_ingredient(ing.id)
     @dish.reload
@@ -42,11 +42,14 @@ describe Dish do
   end
 
   it "can't delete ingredient by wrong argument" do 
+    @dish = Fabricate.build(:dish)
+
     lambda {@dish.remove_ingredient("very wrong argument 123")}.should raise_error(BSON::InvalidObjectId)
   end
 
   it 'should be valid with many prices' do
-    @dish.prices = []
+    @dish = Fabricate.build(:dish, prices: [])
+
     price1 = Fabricate.attributes_for(:price, title: 'medium')
     price2 = Fabricate.attributes_for(:price, title: 'large')
     @dish.add_price(price1)
@@ -57,19 +60,21 @@ describe Dish do
   end
 
   it "shouldn't be valid without price" do
-    @dish.prices =  []
+    @dish = Fabricate.build(:dish, prices: [])
 
     @dish.valid?.should be_false
     @dish.errors.messages.should == {:prices=>["dish should have at least one prices"]}
   end
 
   it 'can delete price by id' do
+    @dish = Fabricate(:dish)
+
     price = @dish.prices.first
-    price2 = Fabricate.attributes_for(:price)
-    @dish.add_price(price2)
+    price2 = Fabricate.build(:price)
+    @dish.add_price(price2.as_json)
 
     @dish.remove_price(price.id)
-    @dish.prices.size.should == 1
+    @dish.prices.should == [price2]  
   end
 
   pending "can't have same prices"
