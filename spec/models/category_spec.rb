@@ -21,12 +21,7 @@ describe Category do
     @category.dishes.size.should == 2
   end
 
-  # it "can't have same dishes" do
-  #   dish = Fabricate.build(:dish) 
-  #   2.times{ @category.add_dish(dish.as_json) }
-
-  #   @category.valid?.should be_false
-  # end
+  pending "can't have same dishes"
 
   it "can delete delete dish through a dish id" do
     dish = @category.dishes.first

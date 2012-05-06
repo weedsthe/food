@@ -1,6 +1,11 @@
 Food::Application.routes.draw do
   root to: "main#index"
 
+
+  resources :categories do
+    resources :dishes
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

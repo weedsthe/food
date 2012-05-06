@@ -14,6 +14,8 @@ class Dish
   validate :min_number_of_ingredients
   validate :min_number_of_prices
 
+  accepts_nested_attributes_for :ingredients, :prices
+
   def add_ingredient(attributes)
     ingredients.build(attributes)
   end

@@ -63,7 +63,7 @@ Spork.prefork do
   end
 
   JsonSpec.configure do
-    exclude_keys "created_at", "updated_at", "_id"
+    exclude_keys "created_at", "updated_at", "_id", "category_id"
   end
 end
 

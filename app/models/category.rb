@@ -6,6 +6,7 @@ class Category
 
   validates :title, presence: true
 
+  accepts_nested_attributes_for :dishes
 
   # Note that for embedded documents this will only check that the 
   #field is unique within the context of the parent document, not the entire database.
