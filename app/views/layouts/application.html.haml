@@ -25,25 +25,41 @@
           %a.brand(href="#") Food
           .container.nav-collapse
             %ul.nav
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
-
+              .btn-group
+                %a.btn.btn-success.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  Dodaj
+                  %span.caret
+                %ul.dropdown-menu
+                  %li
+                    = link_to "#" do
+                      %i.icon-plus-sign= " Kategorie"
+                  %li
+                    = link_to "#" do
+                      %i.icon-plus-sign= " Danie"
+                  %li
+                    = link_to "#" do
+                      %i.icon-plus-sign= " Skladnik"
     .container-fluid
 
       .row-fluid
         .span3
           .well.sidebar-nav
             %ul.nav.nav-list
-              %li.nav-header Sidebar
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+
+              %li.nav-header= link_to "Pizza", "#"
+              %li= link_to "Margerita", "/path1"
+              %li= link_to "Bari", "/path2"
+              %li= link_to "Funghi", "/path3"
+
+              %li.nav-header= link_to "Makarony", "#"
+              %li= link_to "Bolognese", "/path1"
+              %li= link_to "Carbonara", "/path2"
+              %li= link_to "Napoli", "/path3"
         .span9
           = yield
     
       %footer
-        %p &copy; Company 2012
+        %p &copy; Food Company 2012
     /
       Javascripts
       \==================================================

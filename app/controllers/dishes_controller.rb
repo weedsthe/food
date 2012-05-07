@@ -29,7 +29,7 @@ class DishesController < ApplicationController
 
   def destroy
     @dish.destroy
-    respond_with location: category_dishes_url(@category, @dish)
+    respond_with json: @dish, location: category_dishes_url(@category, @dish)
   end
 
   private
