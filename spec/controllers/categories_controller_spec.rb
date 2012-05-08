@@ -22,4 +22,23 @@ describe CategoriesController do
     post :create, category: pizza.as_json, format: :json
     response.body.should be_json_eql(pizza.to_json)
   end
+
+  it 'put update should update and existing category' do
+    pizza = Fabricate(:category)
+    pizza.title = "Peanut butter jelly"
+
+    put :update, id: pizza.id, category: pizza.as_json, format: :json
+    response.body.should be_json_eql(pizza.to_json)
+  end
+
+  it "delete destroy should destroy an existing category with all it dishes" do
+    pizza = Fabricate(:category)
+
+    delete :destroy, id: pizza.id, format: :json 
+    response.status.should == 204
+
+    Category.all.count.should == 0
+    Dish.all.count.should == 0
+  end
+
 end

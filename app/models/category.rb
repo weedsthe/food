@@ -2,7 +2,7 @@ class Category
   include Mongoid::Document
   field :title
 
-  has_many :dishes, autosave: true
+  has_many :dishes, autosave: true, dependent: :delete
 
   validates :title, presence: true
 
