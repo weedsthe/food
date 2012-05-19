@@ -18,47 +18,35 @@ describe DishesController do
   end 
 
 
-  context "new dish with valid input" do
-    it 'post create should create new dish assigned to correct category' do
-      category = Fabricate(:category, :dishes => [])
-      dish = Fabricate(:dish)
-      post :create, category_id: category.id, dish: dish.as_json, format: :json
+  
+  it 'post create should create new dish assigned to correct category' do
+    category = Fabricate(:category, :dishes => [])
+    dish = Fabricate(:dish)
+    post :create, category_id: category.id, dish: dish.as_json, format: :json
 
-      response.body.should be_json_eql(dish.to_json)
-    end
-
-    it "should redirect" do
-      category = Fabricate(:category)
-      dish = category.dishes.first
-      post :create, category_id: category.id, dish: dish.as_json, format: :json
-
-      response.header['Location'].should include category_dish_path(dish.category, dish)
-      response.header['Content-Type'].should include 'application/json'
-    end
-
+    response.body.should be_json_eql(dish.to_json)
   end
 
-  context "update dish with valid input" do
-    it "put update should update an existing dish" do
-      category = Fabricate(:category)
-      dish = category.dishes.first
 
-      put :update, category_id: category.id, id: dish.id, dish: dish.as_json, format: :json
-      response.body.should be_json_eql(dish.to_json)
-    end
+
+  it "put update should update an existing dish" do
+    category = Fabricate(:category)
+    dish = category.dishes.first
+
+    put :update, category_id: category.id, id: dish.id, dish: {title: 'Changed title'}, format: :json
+    response.status.should eql(200)
+    dish.reload
+    dish.title.should eql("Changed title")
   end
 
-  context "destroy dish with valid id" do
-    it "should redirect" do
-      category = Fabricate(:category)
-      dish = category.dishes.first
+  it "delete destroy should destroy an existing dish" do
+    category = Fabricate(:category)
+    dish = category.dishes.first
 
-      delete :destroy, category_id: category.id, id: dish.id, format: :json 
-      response.status.should == 204
-
-      category.reload
-      category.dishes.include?(dish).should be_false
-    end
+    delete :destroy, category_id: category.id, id: dish.id, format: :json 
+    response.status.should == 204
   end
+
+
 
 end
