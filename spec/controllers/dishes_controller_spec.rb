@@ -43,7 +43,7 @@ describe DishesController do
     category = Fabricate(:category)
     dish = category.dishes.first
 
-    delete :destroy, category_id: category.id, id: dish.id, format: :json 
+    expect {delete :destroy,category_id: category.id , id: dish.id, format: :json }.to change(Dish, :count).by(-1)
     response.status.should == 204
   end
 

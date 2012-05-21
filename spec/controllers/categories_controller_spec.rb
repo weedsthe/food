@@ -37,8 +37,9 @@ describe CategoriesController do
   it "delete destroy should destroy an existing category with all it dishes" do
     pizza = Fabricate(:category)
 
-    delete :destroy, id: pizza.id, format: :json 
+    expect { delete :destroy, id: pizza.id, format: :json }.to change(Category, :count).by(-1)
     response.status.should == 204
+
   end
 
 end
